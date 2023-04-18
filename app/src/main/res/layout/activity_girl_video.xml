@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.anshu.helofriend.Activity.GirlVideoActivity"    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <FrameLayout
+            android:id="@+id/remote_video_view_container"
+            android:layout_width="365dp"
+            android:layout_height="415dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="28dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <FrameLayout
+            android:id="@+id/local_video_view_container"
+            android:layout_width="158dp"
+            android:layout_height="169dp"
+            android:layout_below="@+id/remote_video_view_container"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="95dp"
+            android:layout_marginEnd="5dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.86"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/remote_video_view_container" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/JoinButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/local_video_view_container"
+            android:layout_alignStart="@id/remote_video_view_container"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="16dp"
+            android:onClick="joinChannel"
+            android:background="@drawable/button_bg"
+            android:text="Join"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/LeaveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/local_video_view_container"
+            android:layout_alignEnd="@id/remote_video_view_container"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/button_bg"
+            android:onClick="leaveChannel"
+            android:text="Leave"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/local_video_view_container"
+            app:layout_constraintStart_toEndOf="@+id/JoinButton" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

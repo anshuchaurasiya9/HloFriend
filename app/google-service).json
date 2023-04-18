@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "856297419908",
+    "firebase_url": "https://helofriend-bb77f-default-rtdb.firebaseio.com",
+    "project_id": "helofriend-bb77f",
+    "storage_bucket": "helofriend-bb77f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:856297419908:android:9838cb5116eac3a1077ed1",
+        "android_client_info": {
+          "package_name": "com.anshu.helofriend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "856297419908-trer429j4r6323dgv7mqaeafv4m5efk3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anshu.helofriend",
+            "certificate_hash": "21e84ee92592034a475a18f3dc33f32cf4e9c641"
+          }
+        },
+        {
+          "client_id": "856297419908-vdsk0pop9sc1tdra51vk3s11218986mj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0bMkeWP1fia5kSjsIa4uXfwIexutcIgg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "856297419908-vdsk0pop9sc1tdra51vk3s11218986mj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

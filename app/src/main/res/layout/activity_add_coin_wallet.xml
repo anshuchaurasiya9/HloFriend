@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue"
+    tools:context="com.anshu.helofriend.Activity.addCoinWalletActivity">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="330dp"
+        android:layout_height="560dp"
+        android:elevation="30dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="@drawable/card_bg"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:layout_gravity="start"
+                android:fontFamily="@font/alkatra"
+                android:layout_marginBottom="40dp"
+                android:gravity="center"
+                android:hint="buy your coins here"
+                android:padding="5dp"
+                android:textColor="#3E0707"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/addCoins"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="center_horizontal"
+                android:ems="10"
+                android:background="@drawable/tv_bg"
+                android:fontFamily="@font/abhaya_libre_medium"
+                android:gravity="center"
+                android:hint="your coins"
+                android:padding="5dp"
+                android:textColor="#2E2626"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/addMoney"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:background="@drawable/tv_bg"
+                android:layout_gravity="center_horizontal"
+                android:ems="10"
+                android:layout_marginTop="18dp"
+                android:fontFamily="@font/abhaya_libre_medium"
+                android:gravity="center"
+                android:hint="Amount"
+                android:textColor="#2E2626"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/payBtn"
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:background="@drawable/button_bg"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="22dp"
+                android:text="Pay" />
+
+            <TextView
+                android:id="@+id/showStatus"
+                android:layout_width="match_parent"
+                android:layout_height="37dp"
+                android:background="@drawable/tv_bg"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="45dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:text="your Payment Status wiill shown here" />
+
+
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

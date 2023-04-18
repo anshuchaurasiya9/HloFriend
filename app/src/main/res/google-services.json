@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "796830721932",
+    "firebase_url": "https://hlofriend-c43b4-default-rtdb.firebaseio.com",
+    "project_id": "hlofriend-c43b4",
+    "storage_bucket": "hlofriend-c43b4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:796830721932:android:f669c28f15f7f13c6d18a9",
+        "android_client_info": {
+          "package_name": "com.anshu.Helofriend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "796830721932-1bs81f4a3ur425rk0f01be07o5nal02l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyWIWWQTqKr7dVdWRszry17DM_V60934o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "796830721932-1bs81f4a3ur425rk0f01be07o5nal02l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
