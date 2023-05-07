@@ -2,6 +2,7 @@ package com.anshu.helofriend.Activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.WindowManager
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -21,16 +22,19 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
 
 
 
         binding.ContinueRegi.setOnClickListener {
             saveData()
-            startActivity(Intent(this, dashboard::class.java))
             finish()
 
         }
-        database = FirebaseDatabase.getInstance().getReference("User")
+//        database = FirebaseDatabase.getInstance().getReference("User")
+
+
+
 
         binding.radioButton1.setOnClickListener {
             gender = "male"
@@ -41,34 +45,37 @@ class RegisterActivity : AppCompatActivity() {
             binding.radioButton1.isChecked = false
 
         }
-
-
     }
 
     private fun saveData() {
-
+        database = FirebaseDatabase.getInstance().getReference("User")
         val fullName = binding.fullNameRegi.text.toString()
         val email = binding.emailRegi.text.toString()
         val DOB = binding.DOBRegi.text.toString()
         val PhoneNumber = binding.PhoneRegi.text.toString()
         val radioGroup = binding.radioGroup.checkedRadioButtonId.toString()
 
-        database = FirebaseDatabase.getInstance().getReference("User")
-        val gender = gender
-        val User = User(fullName, email, DOB, PhoneNumber, gender)
+        val user = User(fullName, email, DOB, PhoneNumber, gender)
 //        database.push().child("gender").setValue(radioGroup)
-        database.child("12345").setValue(User).addOnSuccessListener {
+        database.child(fullName).setValue(user).addOnSuccessListener {
             Toast.makeText(this, "Successfully Saved", Toast.LENGTH_SHORT).show()
+
+            val intent = Intent(this, dashboard::class.java)
+            intent.putExtra("fullName", fullName)
+            intent.putExtra("male", gender)
+            intent.putExtra("female", gender)
+            startActivity(intent)
+
 
         }.addOnFailureListener {
 
             Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
         }
+
         binding.fullNameRegi.text.clear()
         binding.emailRegi.text.clear()
         binding.DOBRegi.text.clear()
         binding.PhoneRegi.text.clear()
-
 
     }
 

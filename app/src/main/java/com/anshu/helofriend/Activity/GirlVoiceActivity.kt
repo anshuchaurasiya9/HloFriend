@@ -3,18 +3,34 @@ package com.anshu.helofriend.Activity
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.CountDownTimer
+import android.os.SystemClock
 import android.view.View
+import android.view.WindowManager
 import android.widget.Button
+import android.widget.Chronometer
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.anshu.Helofriend.R
+import com.anshu.Helofriend.databinding.ActivityGirlVoiceBinding
+import com.anshu.helofriend.Model.Wallet
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import io.agora.rtc2.*
 
 
 class GirlVoiceActivity : AppCompatActivity() {
+
+    lateinit var binding: ActivityGirlVoiceBinding
+    private lateinit var countDownTimer: CountDownTimer
+    private lateinit var chronometer: Chronometer
+    private val callDurationInMillis: Long = 600000 // 10 minutes in milliseconds
 
 
     private val PERMISSION_REQ_ID = 22
@@ -103,8 +119,41 @@ class GirlVoiceActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_girl_voice)
+        binding = ActivityGirlVoiceBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
 
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        val userCoinsRef = FirebaseDatabase.getInstance().reference.child("Wallet").child(userId!!).child("coins")
+
+        userCoinsRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val currentCoins = dataSnapshot.getValue(Wallet::class.java) ?: 0
+                /*    val updatedCoins = currentCoins - 60
+                    // Start the countdown timer
+                    startCountdownTimer()
+                    // Update the user's coin count in the database
+                    userCoinsRef.setValue(updatedCoins)*/
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Handle the error
+            }
+        })
+        countDownTimer = object : CountDownTimer(callDurationInMillis, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                // Not used in this example
+            }
+            override fun onFinish() {
+                chronometer.stop()
+                // Perform actions when the call duration is finished
+                // e.g., end the call, display a notification, etc.
+            }
+        }
+        binding.flBtnLeave.setOnClickListener {
+            agoraEngine!!.leaveChannel()
+            finish()
+        }
 
         if (!checkSelfPermission()) {
             ActivityCompat.requestPermissions(this, REQUESTED_PERMISSIONS, PERMISSION_REQ_ID)
@@ -122,7 +171,8 @@ class GirlVoiceActivity : AppCompatActivity() {
       override fun onDestroy() {
         super.onDestroy()
         agoraEngine!!.leaveChannel()
-
+          countDownTimer.cancel()
+          chronometer.stop()
         Thread {
             RtcEngine.destroy()
             agoraEngine = null
@@ -138,21 +188,34 @@ class GirlVoiceActivity : AppCompatActivity() {
             options.clientRoleType = Constants.CLIENT_ROLE_BROADCASTER
             // Set the channel profile as BROADCASTING.
             options.channelProfile = Constants.CHANNEL_PROFILE_LIVE_BROADCASTING
-
+            startCountdownTimer()
             // Join the channel with a temp token.
             // You need to specify the user ID yourself, and ensure that it is unique in the channel.
             agoraEngine!!.joinChannel(token, channelName, uid, options)
         }
 
+    private fun startCountdownTimer() {
+        chronometer = findViewById(R.id.chronometer)
+        chronometer.format = "Call Duration: %s"
+        chronometer.base = SystemClock.elapsedRealtime()
+        chronometer.start()
+    }
 
-        fun joinLeaveChannel(view: View) {
+    fun joinLeaveChannel(view: View) {
             if (isJoined) {
                 agoraEngine!!.leaveChannel()
                 joinLeaveButton!!.text = "Join"
+                countDownTimer.cancel()
+                chronometer.stop()
             } else {
                 joinChannel()
                 joinLeaveButton!!.text = "Leave"
             }
+
         }
-    }
+
+    fun onMuteButtonClick(view: View) {}
+    fun onSpeakerButtonClick(view: View) {}
+    fun onCameraOffButtonClick(view: View) {}
+}
 

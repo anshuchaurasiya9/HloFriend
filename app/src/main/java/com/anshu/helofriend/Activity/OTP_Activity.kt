@@ -8,6 +8,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.anshu.Helofriend.databinding.ActivityOtpBinding
@@ -40,6 +41,8 @@ class OTP_Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityOtpBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
 
         OTP = intent.getStringExtra("OTP").toString()
         resendToken = intent.getParcelableExtra("resendToken")!!

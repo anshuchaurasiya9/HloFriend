@@ -20,7 +20,8 @@
         android:icon="@drawable/ic_session"/>
 
     <item android:id="@+id/profile"
-        android:icon="@drawable/ic_profile"
+        android:icon="@drawable/ic_person"
+        android:iconTint="@color/black"
         android:title="@string/profile"
         />
 

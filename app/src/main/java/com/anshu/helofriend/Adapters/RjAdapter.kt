@@ -14,7 +14,6 @@ class RjAdapter(private var userList: List<RjUser>) :
     RecyclerView.Adapter<RjAdapter.rjViewHolder>() {
 
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): rjViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list_rj , parent , false)
         return rjViewHolder(view)
@@ -41,7 +40,7 @@ class RjAdapter(private var userList: List<RjUser>) :
         holder.room.text = userList[position].room
 
     }
-   inner class rjViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+  class rjViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
         val name : TextView = itemView.findViewById(R.id.rjName)
         val title : TextView = itemView.findViewById(R.id.rjTitle)

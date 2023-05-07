@@ -44,10 +44,10 @@ class WalletAdapter(var walletList: List<Wallet>):
 
             it.context.startActivity(intent)
 
-            Toast.makeText(cont, "the the package of ${walletList[position].coins.toString()} is clicked", Toast.LENGTH_SHORT).show()
+            Toast.makeText(cont, "the the package of ${walletList[position].coins} is clicked", Toast.LENGTH_SHORT).show()
     }
         holder.constraint_row.setOnLongClickListener(View.OnLongClickListener {
-            Toast.makeText(cont, "the package of ${walletList[position].price.toString()} is long clicked", Toast.LENGTH_SHORT).show()
+            Toast.makeText(cont, "the package of ${walletList[position].price} is long clicked", Toast.LENGTH_SHORT).show()
 
             return@OnLongClickListener true
         })

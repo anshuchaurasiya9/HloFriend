@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
@@ -28,6 +29,8 @@ class PhoneAuthActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPhoneAuthBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
 
         init()
         sendOTPBtn.setOnClickListener {

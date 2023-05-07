@@ -1,11 +1,10 @@
 package com.anshu.helofriend.Activity
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.transition.Visibility
 import com.anshu.Helofriend.R
 import com.anshu.Helofriend.databinding.ActivityWalletBinding
 import com.anshu.helofriend.Adapters.WalletAdapter
@@ -26,6 +25,7 @@ class WalletActivity : AppCompatActivity() {
         binding = ActivityWalletBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
 
 
         coins = arrayOf(

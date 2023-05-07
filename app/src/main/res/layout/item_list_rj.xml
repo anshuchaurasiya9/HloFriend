@@ -47,11 +47,11 @@
                 android:id="@+id/rjRoom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Join Room"
-                android:padding="2dp"
-                android:background="@drawable/item_btn"
                 android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"/>
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/item_btn"
+                android:padding="2dp"
+                android:text="Join Room" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

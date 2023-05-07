@@ -28,9 +28,8 @@ class RjRepository  {
 
                 try {
                     var users=snapshot.getValue(RjUser::class.java)
-                    var _userList : ArrayList<RjUser>
-                    _userList= ArrayList<RjUser>()
-                    users?.let { _userList.add(it) }
+                    var _allUsers : ArrayList<RjUser> = ArrayList<RjUser>()
+                    users?.let { _allUsers.add(it) }
 
 //                    val _userList : List<RjUser> = snapshot.children.map { dataSnapshot ->
 
@@ -38,7 +37,7 @@ class RjRepository  {
 
 //                    }
 
-                    userList.postValue(_userList)
+                    userList.postValue(_allUsers)
 
                 }
                 catch (e : Exception){
@@ -50,7 +49,6 @@ class RjRepository  {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
             }
 
 

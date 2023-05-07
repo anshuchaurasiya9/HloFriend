@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue"
+    android:background="@color/light_blue"
     tools:context="com.anshu.helofriend.Activity.addCoinWalletActivity">
 
 
@@ -46,6 +46,7 @@
                 android:layout_height="30dp"
                 android:layout_gravity="center_horizontal"
                 android:ems="10"
+                android:drawableLeft="@drawable/coins"
                 android:background="@drawable/tv_bg"
                 android:fontFamily="@font/abhaya_libre_medium"
                 android:gravity="center"
@@ -68,7 +69,8 @@
                 android:hint="Amount"
                 android:textColor="#2E2626"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:drawableLeftCompat="@drawable/money" />
 
 
 

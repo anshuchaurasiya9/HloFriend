@@ -2,6 +2,7 @@ package com.anshu.helofriend.Activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.anshu.Helofriend.R
@@ -25,6 +26,7 @@ class dashboard : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
 
         val homeFragment = HomeFragment()
         val profileFragment = ProfileFragment()
@@ -32,6 +34,7 @@ class dashboard : AppCompatActivity() {
         val topicFragment = TopicFragment()
 
         supportFragmentManager.beginTransaction().replace(R.id.container, homeFragment).commit()
+
 
 
         binding.flotingbtn.setOnClickListener {

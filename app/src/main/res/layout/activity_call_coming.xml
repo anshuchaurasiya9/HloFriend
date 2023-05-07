@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,44 +8,62 @@
     android:background="@drawable/background_image"
     tools:context="com.anshu.helofriend.Activity.callComingActivity">
 
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animation_view"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <LinearLayout
+        android:id="@+id/userCoinsLayout"
+        android:layout_width="125dp"
+        android:layout_height="39dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/grey_bg"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/coins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You have: 100"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/coinImage"
+            android:layout_width="0dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/coins" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="180dp"
+        android:layout_height="71dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/amita_bold"
+        android:gravity="center"
+        android:text="HloFriend"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toStartOf="@+id/userCoinsLayout"
+        app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.296"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/callcoming" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imageView4"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:src="@drawable/profile"
-        app:layout_constraintBottom_toBottomOf="@+id/animation_view"
-        app:layout_constraintEnd_toEndOf="@+id/animation_view"
-        app:layout_constraintStart_toStartOf="@+id/animation_view"
-        app:layout_constraintTop_toTopOf="@+id/animation_view"
-         />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/girlRec"
+        android:layout_width="match_parent"
+        android:layout_height="254dp"
+        android:layout_marginTop="1dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
-        android:text="Cnacel"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/animation_view"
-        app:layout_constraintHorizontal_bias="0.507"
-        app:layout_constraintStart_toStartOf="@+id/animation_view" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
