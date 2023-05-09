@@ -1,18 +1,13 @@
 package com.anshu.helofriend.fragment
 
-import android.R
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -22,12 +17,13 @@ import com.anshu.helofriend.Activity.WalletActivity
 import com.anshu.helofriend.Adapters.RjAdapter
 import com.anshu.helofriend.Model.RjUser
 import com.anshu.helofriend.Model.User
-import com.anshu.helofriend.Model.UsersMoney
-import com.anshu.helofriend.Model.Wallet
 import com.anshu.helofriend.ViewModel.RjViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.gson.Gson
 
 
 class HomeFragment : Fragment() {
@@ -48,29 +44,62 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
 //        Firebase.auth.signOut()
 
+        /*var firebaseAuth = FirebaseAuth.getInstance()
+        val user: FirebaseUser = firebaseAuth.getCurrentUser()!!
+        var  userKey = user.uid*/
+        // Get a reference to the Firebase Realtime Database
+        val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().reference
+        var nodeName = requireActivity().intent.getStringExtra("fullName")
+        Log.d("NodeName", nodeName.toString())
+// Specify the path to the data you want to filter
+        val dataReference: DatabaseReference = databaseReference.child("User")
+
+// Apply a query to filter the data
+        val query: Query = dataReference.orderByChild("anshu Chaurasiya")
+
+// Add a ValueEventListener to read the data
+        query.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // This method is called when the data is changed or initially loaded
+
+                // Retrieve the data from the dataSnapshot
+                val value = dataSnapshot.children
+
+                var userArr = dataSnapshot.toString().split("{")
+                var coinsArr = userArr[3].split("=")
+                Log.d("Userreader", coinsArr[3].split(",")[0]
+
+                )
+                binding.addCoins.text = coinsArr[3].split(",")[0]
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                Log.d("Faliure", databaseError.toString())
+                // This method is called if the data retrieval is canceled or fails
+                // Handle the error as needed
+            }
+        })
+     /*  var firebaseAuth = FirebaseAuth.getInstance()
+       var mDatabase = FirebaseDatabase.getInstance()
+       var mDb = mDatabase.getReference()
+        val user: FirebaseUser = firebaseAuth.getCurrentUser()!!
+      var  userKey = user.uid
+
+        mDb.child("User").child(userKey).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val coins = dataSnapshot.child("coins").getValue(String::class.java)
+                Log.d(TAG, "Coins Searchinggg: $dataSnapshot")
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })*/
 
 
         binding.btnOnline.setOnClickListener {
+
             activity?.let {
                 val intent = Intent(it, CategoriesActivity::class.java)
                 it.startActivity(intent)
-
-              /*intent.getSerializableExtra("male") as  User
-             intent.getSerializableExtra("female") as User
-                val genderId = user.gender
-
-                if (genderId == "male") {
-                    binding.onlineCard.visibility = GONE
-                } else if (genderId == "female") {
-                    binding.onlineCard.visibility = VISIBLE
-                } else {
-                    Toast.makeText(requireContext(), "gender is others", Toast.LENGTH_SHORT).show()
-                }*/
-//                val gender = when (genderId) {
-//                    R.id.radioMale -> "Male"
-//                    R.id. -> "Female"
-//                    else -> "Other"
-
             }
         }
 
@@ -91,20 +120,20 @@ class HomeFragment : Fragment() {
 
         }
 
-        val coinRef = FirebaseDatabase.getInstance().getReference("Wallet")
+       /* val coinRef = FirebaseDatabase.getInstance().getReference("User")
         coinRef.child("coins").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // Retrieve the data and handle updates
-                val user = dataSnapshot.getValue(Wallet::class.java)
+                val user = dataSnapshot.getValue(User::class.java)
                 // Do something with the user data
-//                binding.addCoins.text = user!!.coins.toInt().toString()
+                binding.addCoins.text = user!!.coins.toInt().toString()
                 Log.d(TAG, "COINS")
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
                 // Handle the error
             }
-        })
+        })*/
 
 
         adapter = RjAdapter(userList)

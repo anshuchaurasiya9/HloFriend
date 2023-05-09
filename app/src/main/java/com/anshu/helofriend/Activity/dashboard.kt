@@ -16,10 +16,7 @@ import com.anshu.helofriend.fragment.HomeFragment
 class dashboard : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
 
-    private lateinit var homeFragment: Fragment
-    private lateinit var sessionFragment: Fragment
-    private lateinit var profileFragment: Fragment
-    private lateinit var topicFragment: Fragment
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -2,6 +2,7 @@ package com.anshu.helofriend.Activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
 import android.widget.RadioButton
 import android.widget.Toast
@@ -55,7 +56,7 @@ class RegisterActivity : AppCompatActivity() {
         val PhoneNumber = binding.PhoneRegi.text.toString()
         val radioGroup = binding.radioGroup.checkedRadioButtonId.toString()
 
-        val user = User(fullName, email, DOB, PhoneNumber, gender)
+        val user = User(fullName, email, DOB, PhoneNumber, gender, 0, 0, 0)
 //        database.push().child("gender").setValue(radioGroup)
         database.child(fullName).setValue(user).addOnSuccessListener {
             Toast.makeText(this, "Successfully Saved", Toast.LENGTH_SHORT).show()

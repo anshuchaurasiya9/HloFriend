@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.SystemClock
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.Button
@@ -22,6 +23,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.gson.Gson
 import io.agora.rtc2.*
 
 
@@ -129,11 +131,12 @@ class GirlVoiceActivity : AppCompatActivity() {
         userCoinsRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val currentCoins = dataSnapshot.getValue(Wallet::class.java) ?: 0
-                /*    val updatedCoins = currentCoins - 60
+                Log.d("current", Gson().toJson(currentCoins))
+//                    val updatedCoins = currentCoins - 60
                     // Start the countdown timer
                     startCountdownTimer()
                     // Update the user's coin count in the database
-                    userCoinsRef.setValue(updatedCoins)*/
+//                    userCoinsRef.setValue(updatedCoins)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -179,7 +182,6 @@ class GirlVoiceActivity : AppCompatActivity() {
         }.start()
 
 }
-
 
         private fun joinChannel() {
             val options = ChannelMediaOptions()

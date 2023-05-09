@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.SystemClock
+import android.util.Log
 import android.view.SurfaceView
 import android.view.View
 import android.view.WindowManager
@@ -25,6 +26,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.gson.Gson
 import io.agora.rtc2.*
 import io.agora.rtc2.video.VideoCanvas
 
@@ -112,12 +114,16 @@ class GirlVideoActivity : AppCompatActivity() {
 
 
         val userId = FirebaseAuth.getInstance().currentUser?.uid
-        val userCoinsRef = FirebaseDatabase.getInstance().reference.child("Wallet").child(userId!!).child("coins")
+
+        val userCoinsRef = FirebaseDatabase.getInstance().reference.child("Wallet").child("coins")
+//        val userCoinsRef = FirebaseDatabase.getInstance().reference.database
+
 
         //To retreive the coins from firebase
         userCoinsRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val currentCoins = dataSnapshot.getValue(Wallet::class.java) ?: 0
+                Log.d("CurrentCoins", Gson().toJson(currentCoins))
             /*    val updatedCoins = currentCoins - 60
                 // Start the countdown timer
                 startCountdownTimer()

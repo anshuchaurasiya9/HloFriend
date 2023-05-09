@@ -30,7 +30,7 @@ class ProfileFragment : Fragment() {
         binding.tvName.text = user.fullName.toString()
         binding.tvEmail.text = user.email.toString()
         binding.tvGender.text = user.gender.toString()
-        binding.tvMobile.text = user.PhoneNumber.toString()
+        binding.tvMobile.text = user.phoneNumber.toString()
 
         binding.walletImg.setOnClickListener {
             activity?.let { it ->
