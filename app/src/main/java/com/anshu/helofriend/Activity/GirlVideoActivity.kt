@@ -1,9 +1,12 @@
 package com.anshu.helofriend.Activity
 
 import android.Manifest
+import android.content.DialogInterface
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Handler
 import android.os.SystemClock
 import android.util.Log
 import android.view.SurfaceView
@@ -13,6 +16,7 @@ import android.widget.Button
 import android.widget.Chronometer
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -22,10 +26,7 @@ import com.anshu.helofriend.Model.Wallet
 import com.anshu.helofriend.media.RtcTokenBuilder2
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.google.gson.Gson
 import io.agora.rtc2.*
 import io.agora.rtc2.video.VideoCanvas
@@ -36,9 +37,11 @@ class GirlVideoActivity : AppCompatActivity() {
     lateinit var binding: ActivityGirlVideoBinding
     private lateinit var countDownTimer: CountDownTimer
     private lateinit var chronometer: Chronometer
+    private lateinit var handler: Handler
+    private lateinit var taskRunnable: Runnable
     private val callDurationInMillis: Long = 600000 // 10 minutes in milliseconds
-
-
+var remainingCoins = 0
+var currentCoins = ""
     var appCertificate = "e2d9d34dff754d0e8a1cdf828a6d36c4"
     var expirationTimeInSeconds = 3600
     // Fill the App ID of your project generated on Agora Console.
@@ -110,34 +113,42 @@ class GirlVideoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityGirlVideoBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
+//        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
 
 
-        val userId = FirebaseAuth.getInstance().currentUser?.uid
+//        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().reference
+// Specify the path to the data you want to filter
+        val dataReference: DatabaseReference = databaseReference.child("User")
+        var nodeName = this.intent.getStringExtra("fullName")
+        Log.d("NodeName of payment", nodeName.toString())
+// Apply a query to filter the data
+        val query: Query = dataReference.orderByChild(nodeName.toString())
 
-        val userCoinsRef = FirebaseDatabase.getInstance().reference.child("Wallet").child("coins")
-//        val userCoinsRef = FirebaseDatabase.getInstance().reference.database
-
-
-        //To retreive the coins from firebase
-        userCoinsRef.addListenerForSingleValueEvent(object : ValueEventListener {
+// Add a ValueEventListener to read the data
+        query.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val currentCoins = dataSnapshot.getValue(Wallet::class.java) ?: 0
-                Log.d("CurrentCoins", Gson().toJson(currentCoins))
-            /*    val updatedCoins = currentCoins - 60
-                // Start the countdown timer
-                startCountdownTimer()
-                // Update the user's coin count in the database
-                userCoinsRef.setValue(updatedCoins)*/
+                // This method is called when the data is changed or initially loaded
+
+                // Retrieve the data from the dataSnapshot
+                val value = dataSnapshot.children
+
+//                var userArr = dataSnapshot.toString().split("{")
+//                var coinsArr = userArr[3].split("=")
+//                Log.d("Userreader", coinsArr[3].split(",")[0])
+//                currentCoins = coinsArr[3].split(",")[0]
+//                remainingCoins = currentCoins.toInt()
+//                binding.addCoins.text = coinsArr[3].split(",")[0]
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                // Handle the error
+                Log.d("Faliure", databaseError.toString())
+                // This method is called if the data retrieval is canceled or fails
+                // Handle the error as needed
             }
         })
 
-
-        countDownTimer = object : CountDownTimer(callDurationInMillis, 1000) {
+  /*      countDownTimer = object : CountDownTimer(callDurationInMillis, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 // Not used in this example
             }
@@ -146,7 +157,7 @@ class GirlVideoActivity : AppCompatActivity() {
                 // Perform actions when the call duration is finished
                 // e.g., end the call, display a notification, etc.
             }
-        }
+        }*/
 
 
         val tokenBuilder = RtcTokenBuilder2()
@@ -170,7 +181,7 @@ class GirlVideoActivity : AppCompatActivity() {
         super.onDestroy()
         agoraEngine!!.stopPreview()
         agoraEngine!!.leaveChannel()
-        countDownTimer.cancel()
+//        countDownTimer.cancel()
         chronometer.stop()
 
         Thread {
@@ -229,6 +240,7 @@ class GirlVideoActivity : AppCompatActivity() {
             options.channelProfile = Constants.CHANNEL_PROFILE_COMMUNICATION
             options.clientRoleType = Constants.CLIENT_ROLE_BROADCASTER
             setupLocalVideo()
+//            remainingCoins -= 60
             localSurfaceView!!.visibility = View.VISIBLE
             agoraEngine!!.startPreview()
             agoraEngine!!.joinChannel(token, channelName, uid, options)
@@ -240,29 +252,78 @@ class GirlVideoActivity : AppCompatActivity() {
         }
     }
 
+
     private fun startCountdownTimer() {
+        Log.d("method started", "logg")
         chronometer = findViewById(R.id.chronometer)
-        chronometer.format = "Call Duration: %s"
+        chronometer.format = "Call : %s"
         chronometer.base = SystemClock.elapsedRealtime()
+//        chronometer.start()
+        Log.d("timer", SystemClock.elapsedRealtime().toString())
+//        currentCoins = (currentCoins.toInt() - 60).toString()
+
+        handler = Handler()
+
+        taskRunnable = object : Runnable {
+            override fun run() {
+                // Perform your task here
+                // This code will execute every one minute
+
+                handler.postDelayed(this, 60000) // Schedule the next execution after one minute
+            }
+        }
+        chronometer.setOnChronometerTickListener { chronometer ->
+            val elapsedMillis = System.currentTimeMillis() - chronometer.base
+            val elapsedSeconds = elapsedMillis / 1000
+            val elapsedMinutes = elapsedSeconds / 60
+
+
+            if (elapsedMinutes >= 1) {
+                // One minute has completed
+                handler.post(taskRunnable) // Start the task
+                remainingCoins -= 60
+                Log.d("coin deducted", remainingCoins.toString())
+
+            }
+        }
+
+        if(remainingCoins < 60){
+            showRechargeDialog()
+        }
+
         chronometer.start()
+        handler.post(taskRunnable)
+        remainingCoins -= 60
+
+        // Start the task initially
 
     }
 
-   /*   private fun startCountdownTimer() {
-              countDownTimer = object : CountDownTimer(60000, 1000) {
-                  override fun onTick(millisUntilFinished: Long) {
-                      val seconds = millisUntilFinished / 1000
-                      binding.tvCountDownTimer.text = "Time remaining: $seconds seconds"
-                  }
+    private fun showRechargeDialog() {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Coin Recharge")
+                .setMessage("Your coins have ended. Recharge now?")
+                .setPositiveButton("Recharge") { dialog: DialogInterface?, which: Int ->
+                    // Recharge button clicked
+                    performRecharge()
+                    // Perform recharge logic here
+                }
+                .setNegativeButton("Cancel") { dialog: DialogInterface?, which: Int ->
+                    // Cancel button clicked
+                    // Handle cancel logic here
+                    cancelRecharge()
+                }
+                .setCancelable(false) // Prevent dialog dismissal on outside touch or back press
 
-                  override fun onFinish() {
-                      binding.tvCountDownTimer.text = "Call ended"
-                  }
-              }
-
-              countDownTimer.start()
-
-      }*/
+            val dialog = builder.create()
+            dialog.show()
+        }
+    private fun cancelRecharge() {
+        startActivity(Intent(this, dashboard::class.java))
+    }
+    private fun performRecharge() {
+        startActivity(Intent(this, WalletActivity::class.java))
+    }
 
     fun leaveChannel(view: View) {
         if (!isJoined) {
@@ -271,7 +332,7 @@ class GirlVideoActivity : AppCompatActivity() {
             agoraEngine!!.leaveChannel()
             showMessage("You left the channel")
 //            cancelCountdownTimer()
-            countDownTimer.cancel()
+//            countDownTimer.cancel()
             chronometer.stop()
             if (remoteSurfaceView != null) remoteSurfaceView!!.visibility = View.GONE
             if (localSurfaceView != null) localSurfaceView!!.visibility = View.GONE

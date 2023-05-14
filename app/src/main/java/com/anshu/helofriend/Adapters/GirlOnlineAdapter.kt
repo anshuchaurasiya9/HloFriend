@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.anshu.Helofriend.R
 import com.anshu.helofriend.Model.Girl
 
-class GirlOnlineAdapter(private val context: Context, private val onlineList:List<Girl>) :
+class GirlOnlineAdapter(private val context : Context, private val onlineList: List<Girl>) :
     RecyclerView.Adapter<GirlOnlineAdapter.GirlViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GirlViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_girl_online, parent, false)
+            LayoutInflater.from(context).inflate(R.layout.item_girl_online, parent, false)
         return GirlViewHolder(view)
     }
 

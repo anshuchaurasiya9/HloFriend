@@ -9,4 +9,7 @@
     <item android:drawable="@drawable/bg3"
         android:duration="3500"/>
 
+    <item android:drawable="@drawable/bg3"
+        android:duration="3500"/>
+
 </animation-list>

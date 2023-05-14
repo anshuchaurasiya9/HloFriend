@@ -125,14 +125,14 @@ class GirlVoiceActivity : AppCompatActivity() {
         setContentView(binding.root)
         window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
 
-        val userId = FirebaseAuth.getInstance().currentUser?.uid
-        val userCoinsRef = FirebaseDatabase.getInstance().reference.child("Wallet").child(userId!!).child("coins")
+        /*val userId = FirebaseAuth.getInstance().currentUser?.uid
+        val userCoinsRef = FirebaseDatabase.getInstance().reference.child("User").child(userId!!).child("coins")
 
         userCoinsRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val currentCoins = dataSnapshot.getValue(Wallet::class.java) ?: 0
                 Log.d("current", Gson().toJson(currentCoins))
-//                    val updatedCoins = currentCoins - 60
+//                    val updatedCoins = currentCoins - 10
                     // Start the countdown timer
                     startCountdownTimer()
                     // Update the user's coin count in the database
@@ -142,17 +142,21 @@ class GirlVoiceActivity : AppCompatActivity() {
             override fun onCancelled(databaseError: DatabaseError) {
                 // Handle the error
             }
-        })
+        })*/
+
+
         countDownTimer = object : CountDownTimer(callDurationInMillis, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                // Not used in this example
+
             }
             override fun onFinish() {
                 chronometer.stop()
                 // Perform actions when the call duration is finished
                 // e.g., end the call, display a notification, etc.
+
             }
         }
+
         binding.flBtnLeave.setOnClickListener {
             agoraEngine!!.leaveChannel()
             finish()
@@ -161,7 +165,6 @@ class GirlVoiceActivity : AppCompatActivity() {
         if (!checkSelfPermission()) {
             ActivityCompat.requestPermissions(this, REQUESTED_PERMISSIONS, PERMISSION_REQ_ID)
         }
-
         setupVoiceSDKEngine()
 
         // Set up access to the UI elements

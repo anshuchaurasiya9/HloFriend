@@ -4,17 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/btn_color"
+    android:background="@drawable/bg1"
     tools:context="com.anshu.helofriend.Activity.CategoriesActivity">
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroup"
         android:layout_width="397dp"
-        android:layout_height="214dp"
+        android:layout_height="251dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="228dp"
         android:layout_marginEnd="10dp"
+        android:foregroundGravity="center"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:singleSelection="true">
@@ -24,10 +26,10 @@
             style="@style/Widget.MaterialComponents.Chip.Action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:chipBackgroundColor="@color/teal_200"
-            android:layout_margin="5dp"
+            android:layout_margin="20dp"
             android:checkable="true"
             android:text="love"
+            app:chipBackgroundColor="@color/teal_200"
             app:chipIcon="@drawable/ic_love"
             app:chipIconSize="20dp" />
 
@@ -35,10 +37,10 @@
             android:id="@+id/chip2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="20dp"
             android:checkable="true"
-            app:chipBackgroundColor="@color/purple_700"
             android:text="friend"
+            app:chipBackgroundColor="@color/purple_700"
             app:chipIcon="@drawable/ic_friend"
             app:chipIconSize="20dp"
 
@@ -48,10 +50,10 @@
             android:id="@+id/chip3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="20dp"
             android:checkable="true"
-            app:chipBackgroundColor="@color/purple_200"
             android:text="break-up"
+            app:chipBackgroundColor="@color/purple_200"
             app:chipIcon="@drawable/ic_brokenheart"
 
             />
@@ -60,6 +62,7 @@
             android:id="@+id/chip4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="30dp"
             android:checkable="true"
             android:text="bore"
             app:chipBackgroundColor="@color/katthayi"
@@ -70,22 +73,24 @@
             android:id="@+id/chip5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:checkable="true"
-            app:chipBackgroundColor="@color/light_yellow"
+            android:layout_margin="35dp"
+            android:layout_marginTop="5dp"
 
+            android:checkable="true"
             android:text="motivation"
+
+            app:chipBackgroundColor="@color/light_yellow"
             app:chipIcon="@drawable/ic_motivation" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            app:chipBackgroundColor="@color/light_blue"
-
+            android:layout_margin="44dp"
             android:checkable="true"
+
             android:text="romantic"
+            app:chipBackgroundColor="@color/light_blue"
             app:chipIcon="@drawable/ic_romantic" />
 
         <com.google.android.material.chip.Chip
@@ -93,32 +98,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            app:chipBackgroundColor="@color/blue"
-
             android:checkable="true"
+
             android:text="happy"
+            app:chipBackgroundColor="@color/blue"
             app:chipIcon="@drawable/ic_happy" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            app:chipBackgroundColor="@color/katthayi"
-
+            android:layout_margin="55dp"
             android:checkable="true"
+
             android:text="sad"
+            app:chipBackgroundColor="@color/katthayi"
             app:chipIcon="@drawable/ic_sad" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            app:chipBackgroundColor="@color/red"
-
+            android:layout_margin="80dp"
             android:checkable="true"
+
             android:text="joy"
+            app:chipBackgroundColor="@color/red"
             app:chipIcon="@drawable/ic_joy" />
 
     </com.google.android.material.chip.ChipGroup>
@@ -129,9 +134,38 @@
         android:layout_height="52dp"
         android:background="@drawable/button_bg"
         android:text="Continue"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chipGroup"
         app:layout_constraintVertical_bias="0.658" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="212dp"
+        android:layout_height="42dp"
+        android:layout_marginBottom="144dp"
+        android:fontFamily="@font/alkatra"
+        android:text="Categories"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/chipGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.075"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/amita_bold"
+        android:text="Choose any Category"
+        android:layout_marginEnd="30dp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="@+id/textView10"
+        app:layout_constraintHorizontal_bias="0.075"
+        app:layout_constraintStart_toStartOf="@+id/textView10"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
 </androidx.constraintlayout.widget.ConstraintLayout>

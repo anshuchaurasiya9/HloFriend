@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/bg_animation"
+    android:background="@drawable/bg2"
     android:layout_height="match_parent"
     tools:context="com.anshu.helofriend.Activity.PhoneAuthActivity">
 
@@ -27,14 +27,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/editTextNumber2" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/sendOTPBtn"
         android:layout_width="wrap_content"
         android:layout_height="55dp"
         android:layout_marginBottom="84dp"
-        android:backgroundTint="@color/btn_color"
         android:text="Send otp"
-        android:textColor="@color/white"
+        android:background="@drawable/button_bg"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,26 +57,27 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="20dp"
-        android:text="Login with \nMobile number"
+        android:layout_marginStart="132dp"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="@font/abhaya_libre_medium"
+        android:text="Login"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/editTextNumber2"
         app:layout_constraintStart_toStartOf="@+id/editTextNumber2" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/imageLottieView"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="380dp"
         android:layout_margin="20dp"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
         app:lottie_rawRes="@raw/phone_auth" />
 
     <ProgressBar

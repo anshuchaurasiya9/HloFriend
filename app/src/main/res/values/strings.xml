@@ -17,4 +17,6 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="go_online">Go Online</string>
     <string name="call">Call</string>
+    <string name="verify">Verify</string>
+    <string name="report">Report</string>
 </resources>

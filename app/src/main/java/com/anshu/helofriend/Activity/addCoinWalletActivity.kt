@@ -12,6 +12,7 @@ import com.anshu.Helofriend.databinding.ActivityAddCoinWalletBinding
 import com.anshu.helofriend.Model.Wallet
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.Query
 import com.razorpay.Checkout
 import com.razorpay.PaymentResultListener
 import org.json.JSONObject
@@ -20,17 +21,18 @@ class addCoinWalletActivity : AppCompatActivity(), PaymentResultListener {
     lateinit var binding: ActivityAddCoinWalletBinding
     private lateinit var database: DatabaseReference
 
+    var coins = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddCoinWalletBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
+//        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
 
 
         val addCoins = binding.addCoins
         val addMoney = binding.addMoney
-        val coins = intent?.getStringExtra("coins")
+        coins = intent?.getStringExtra("coins").toString()
         val price = intent?.getStringExtra("price")
 
         addCoins.text = coins.toString()
@@ -81,19 +83,28 @@ class addCoinWalletActivity : AppCompatActivity(), PaymentResultListener {
 
     override fun onPaymentSuccess(p0: String?) {
 
-        binding.showStatus.text = p0
+        binding.showStatus.text ="Payment Successful"
         binding.showStatus.setTextColor(Color.GREEN)
         Toast.makeText(this, "Payment Successful", Toast.LENGTH_SHORT).show()
         addCoins()
     }
 
     private fun addCoins() {
-        database = FirebaseDatabase.getInstance().getReference("Wallet")
-        val coins = binding.addCoins.text.toString()
-        val money = binding.addMoney.text.toString()
-        val wallet = Wallet(coins, "", money)
+        val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().reference
 
-        database.child("Coins").setValue(wallet).addOnSuccessListener {
+        var nodeName = this.intent.getStringExtra("fullName")
+        Log.d("NodeName of payment", nodeName.toString())
+// Specify the path to the data you want to filter
+        val dataReference: DatabaseReference = databaseReference.child("User")
+        val query: Query = dataReference.orderByChild(nodeName.toString())
+
+        /* val coins = binding.addCoins.text.toString()
+         val money = binding.addMoney.text.toString()
+         val wallet = Wallet(coins, "", money)*/
+
+        dataReference.child(nodeName.toString()).child("coins").setValue(coins).addOnSuccessListener {
+
+            Toast.makeText(this, "Coin added Successfully ", Toast.LENGTH_SHORT).show()
 
             val intent = Intent(this, dashboard::class.java)
             startActivity(intent)
@@ -109,7 +120,7 @@ class addCoinWalletActivity : AppCompatActivity(), PaymentResultListener {
     override fun onPaymentError(p0: Int, p1: String?) {
         Log.d(TAG, "onPaymentError: $p0")
         Log.d(TAG, "onPaymentError: $p1")
-        binding.showStatus.text = p1
+        binding.showStatus.text = "Payment Failed"
         binding.showStatus.setTextColor(Color.RED)
 
         Toast.makeText(this, "Payment Not Successful", Toast.LENGTH_SHORT).show()

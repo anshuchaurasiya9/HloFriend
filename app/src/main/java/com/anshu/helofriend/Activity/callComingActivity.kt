@@ -10,6 +10,9 @@ import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.anshu.Helofriend.databinding.ActivityCallComingBinding
 import com.anshu.helofriend.Adapters.GirlOnlineAdapter
+import com.anshu.helofriend.Model.Girl
+import com.anshu.helofriend.Model.RjUser
+import com.anshu.helofriend.Model.User
 import com.anshu.helofriend.Model.UsersMoney
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
@@ -23,15 +26,16 @@ import com.google.firebase.database.annotations.NotNull
 class callComingActivity : AppCompatActivity() {
     lateinit var binding: ActivityCallComingBinding
 
-    private lateinit var girlOnlineAdapter: GirlOnlineAdapter
-//
+    var onlineList: ArrayList<Girl> = ArrayList()
+    lateinit var categoryAdapter : GirlOnlineAdapter
+
 //    var auth: FirebaseAuth? = null
 //    var database: FirebaseDatabase? = null
 //    var coins: Long = 0
 //    var permissions = arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO)
 //    private val requestCode = 1
-//
 //    var users: UsersMoney? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCallComingBinding.inflate(layoutInflater)
@@ -41,11 +45,10 @@ class callComingActivity : AppCompatActivity() {
 //        database = FirebaseDatabase.getInstance()
 
 
+    categoryAdapter = GirlOnlineAdapter( this, onlineList)
+        binding.loveRec.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
-        binding.girlRec.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        binding.girlRec.adapter = girlOnlineAdapter
-//        val adapter = GirlOnlineAdapter(onlineList.size)
-
+        binding.loveRec.adapter = categoryAdapter
 
 //        val currentUser = auth!!.currentUser
 /*

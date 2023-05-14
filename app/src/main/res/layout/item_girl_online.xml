@@ -5,8 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="140dp"
-        android:layout_height="140dp"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
         android:elevation="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -17,10 +17,19 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <ImageView
+                android:id="@+id/cameraChange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_camera"
+                android:layout_gravity="end"
+                android:layout_margin="2dp"
+                app:tint="@color/Green" />
+
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/girlImage"
-                android:layout_width="66dp"
-                android:layout_height="66dp"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/dino"
                 app:civ_border_color="#FF000000"
@@ -29,7 +38,7 @@
             <TextView
                 android:id="@+id/GirlName"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
+                android:layout_height="17dp"
                 android:gravity="center"
                 android:text="Manish11"
                 android:textColor="@color/black" />
@@ -37,9 +46,10 @@
             <TextView
                 android:id="@+id/girlCategory"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
+                android:layout_height="15dp"
                 android:gravity="center"
-                android:text="category11"
+                android:layout_margin="1dp"
+                android:text="category"
                 android:textColor="@color/red" />
 
             <Button
@@ -51,7 +61,7 @@
                 android:drawableStart="@drawable/ic_voice"
                 android:paddingStart="5dp"
                 android:text="@string/call"
-                android:textSize="10sp" />
+                android:textSize="8sp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
 
